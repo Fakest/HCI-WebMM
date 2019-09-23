@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My Multimedia Examples</title>
+
+<script src="jquery.js"></script>
+
+<script>
+function clickBtn( btn )
+{
+  var bname = "#scene" + btn;
+  $("[id^='scene']").hide();
+  $(bname).show();
+}
+
+$(document).ready(function(){
+  clickBtn('0');
+});
+</script>
+
+<style>
+    div.stage { position: absolute; top: 20px; left: 20px; width: 640px; height: 400px;
+        background-color: Black; }
+    div.menu { position: absolute; top: 5px; left: 5px;
+        width: 115px; height: 380px; background-color: CadetBlue;
+        color: white; padding: 5px; }
+    div.content { position: absolute; top: 5px; left: 135px;
+        width: 490px; height: 380px;
+        background-color: Azure; padding: 5px; }
+
+    button.block { display: block; padding: 5px; margin: 5px; width: 105px; }
+
+    h1.welcome {font-family: Verdana, sans-serif; color: darkred;
+        text-align: center; text-shadow: 2px 2px lightgrey; transition: 1s; }
+    .welcomeTxt{
+        font-family: Roboto,serif;
+        color: #164c5b;
+        text-align: center;
+    }
+    h1.welcome:hover { transform: rotateZ(360deg); }
+    #bullet { background-color: silver;
+              width: 40px; height: 20px;
+              border-top-right-radius: 10px;
+              border-bottom-right-radius: 10px;
+              position: absolute;
+              left: 120px;
+              top: 200px;
+    }
+    #slideShow{
+        color:darkblue;
+        font-family: Roboto, sans-serif;
+        text-align: center;
+
+    }
+    #vid{
+        color:darkcyan;
+        font-family: Roboto, sans-serif;
+        text-align: center;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div id="stage" class="stage">
+
+    <div id="menu1" class="menu">
+
+        <button id="btnHome" type="button" onclick="clickBtn('0')" class="block">Home</button>
+        <button id="btnSlide" type="button" onclick="clickBtn('1')" class="block">Slide show</button>
+        <button id="btnVid" type="button" onclick="clickBtn('2')" class="block">Video</button>
+        <button id="btnCanvas" type="button" onclick="clickBtn('3')" class="block">Canvas</button>
+
+    </div>
+
+    <!-- Intro screen (scene0) -->
+    <div id="scene0" class="content">
+    <h1 class="welcome">WELCOME!</h1>
+    <p class="welcomeTxt">
+    This is my test multimedia site, built using HTML5, Cascading Style Sheets (CSS) and JavaScript.
+    </p>
+    <p class="welcomeTxt">
+    Author: What is my name?, June 2016.
+    </p>
+    </div>
+    <div id="scene1" class="content">
+        <h2 id="slideShow">Slide show!</h2>
+        <p style="text-align: center">
+            <img id="slide" src="Media/image1.jpg" width="288" height="209" alt="img1">
+        </p>
+        <button id="next" type="button" onclick="nextSlide()">Next</button>
+        <button id="prev" type="button" onclick="prevSlide()">Previous</button>
+    </div>
+    <script>
+        var i = 1;
+        var l = 0;
+
+        function newSlide(i) {
+            var iName = "Media/image" + i + ".jpg";
+            var iNew = document.getElementById('slide');
+            iNew.setAttribute("src", iName);
+        }
+        function nextSlide(){
+            i += 1;
+            newSlide(i);
+            document.getElementById("prev").disabled = false;
+            if(i == 3){
+                document.getElementById("next").disabled = true;
+            }
+        }
+        function prevSlide(){
+            i -= 1;
+            newSlide(i);
+            document.getElementById("next").disabled = false;
+            if(i == 1){
+                document.getElementById("prev").disabled = true;
+            }
+        }
+    </script>
+    <div id="scene2" class="content">
+        <h2 id = vid>Video</h2>
+        <p>
+            <video src="Media/LMFAO.mp4" width="409" height="240" controls></video>
+        </p>
+        <button onclick="document.getElementById('vid').play();">Play</button>
+        <button onclick="document.getElementById('vid').pause();">Pause</button>
+        <button onclick="document.getElementById('vid').load();">Rewind</button>
+    </div>
+    <div id="scene3" class="content">
+        <canvas id="canvas" width="400" height="300"></canvas>
+
+    </div>
+    <script>
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, 400, 300)
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(400, 300);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        ctx.moveTo(0, 300);
+        ctx.lineTo(400, 0);
+        ctx.stroke();
+    </script>
+</div>
+
+</body>
+</html>
